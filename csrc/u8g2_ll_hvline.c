@@ -259,10 +259,10 @@ void u8g2_ll_hvline_horizontal_right_lsb(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_
   offset += x>>3;
   ptr = u8g2->tile_buf_ptr;
   ptr += offset;
-  
+
   if ( dir == 0 )
   {
-      
+
     do
     {
 
@@ -270,14 +270,14 @@ void u8g2_ll_hvline_horizontal_right_lsb(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_
 	*ptr |= mask;
       if ( u8g2->draw_color != 1 )
 	*ptr ^= mask;
-      
+
       mask >>= 1;
       if ( mask == 0 )
       {
 	mask = 128;
         ptr++;
       }
-      
+
       //x++;
       len--;
     } while( len != 0 );
@@ -290,7 +290,7 @@ void u8g2_ll_hvline_horizontal_right_lsb(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_
 	*ptr |= mask;
       if ( u8g2->draw_color != 1 )
 	*ptr ^= mask;
-      
+
       ptr += tile_width;
       //y++;
       len--;

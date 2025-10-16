@@ -1755,6 +1755,22 @@ void u8g2_Setup_ssd1315_i2c_128x64_noname_f(u8g2_t *u8g2, const u8g2_cb_t *rotat
 /* u8g2_buffer.c */
 
 void u8g2_SendBuffer(u8g2_t *u8g2);
+/* SH1122 4bpp grayscale: send a full 256x64 frame (8192 bytes, 128 bytes per row) directly to the display */
+void u8g2_sh1122_Send4bppBuffer(u8g2_t *u8g2, const uint8_t *grayscale_buffer);
+/* Utilities for building a 4bpp frame from the current u8g2 page (respects rotation) */
+void u8g2_sh1122_GrayClear(uint8_t *grayscale_buffer, uint8_t level);
+/* mode: 0=overwrite dest with fg_level for src=1; 1=max blend (dest = max(dest, fg_level)) */
+void u8g2_sh1122_CompositePageTo4bpp(u8g2_t *u8g2, uint8_t *grayscale_buffer, uint8_t fg_level, uint8_t mode);
+/* SH1122 natural API support: set current foreground 4-bit level used by sendBuffer expansion */
+void u8g2_sh1122_SetForegroundLevel(uint8_t level);
+/* SH1122 natural grayscale accumulation helpers (for standard API): */
+uint8_t u8g2_sh1122_IsNaturalGrayActive(void);
+void u8g2_sh1122_NaturalGrayBegin(u8g2_t *u8g2);
+void u8g2_sh1122_NaturalGrayFlushLayer(u8g2_t *u8g2, uint8_t level);
+void u8g2_sh1122_NaturalGrayFinish(u8g2_t *u8g2, uint8_t level);
+uint8_t u8g2_sh1122_GetForegroundLevel(void);
+/* Returns 1 if the current u8g2 device is an SH1122-based display */
+uint8_t u8g2_sh1122_IsDevice(u8g2_t *u8g2);
 void u8g2_ClearBuffer(u8g2_t *u8g2);
 
 void u8g2_SetBufferCurrTileRow(u8g2_t *u8g2, uint8_t row) U8G2_NOINLINE;

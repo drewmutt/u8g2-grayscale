@@ -185,7 +185,11 @@ class U8G2
     
     /* u8g2_buffer.c */
     void sendBuffer(void) { u8g2_SendBuffer(&u8g2); }
-    void clearBuffer(void) { u8g2_ClearBuffer(&u8g2); }    
+    void clearBuffer(void) { u8g2_ClearBuffer(&u8g2); }
+    /* SH1122 4bpp grayscale helpers (C++): forwarders to C APIs */
+    void sh1122_Send4bppBuffer(const uint8_t *grayscale_buffer) { u8g2_sh1122_Send4bppBuffer(&u8g2, grayscale_buffer); }
+    void sh1122_GrayClear(uint8_t *grayscale_buffer, uint8_t level) { u8g2_sh1122_GrayClear(grayscale_buffer, level); }
+    void sh1122_CompositePageTo4bpp(uint8_t *grayscale_buffer, uint8_t fg_level, uint8_t mode = 0) { u8g2_sh1122_CompositePageTo4bpp(&u8g2, grayscale_buffer, fg_level, mode); }
     
     void firstPage(void) { u8g2_FirstPage(&u8g2); }
     uint8_t nextPage(void) { return u8g2_NextPage(&u8g2); }

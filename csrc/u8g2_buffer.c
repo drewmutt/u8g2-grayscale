@@ -92,6 +92,14 @@ static void u8g2_send_buffer(u8g2_t *u8g2)
 /* same as u8g2_send_buffer but also send the DISPLAY_REFRESH message (used by SSD1606) */
 void u8g2_SendBuffer(u8g2_t *u8g2)
 {
+  /* For SH1122 natural grayscale mode, compose final layer and send 4bpp frame */
+  if ( u8g2_sh1122_IsNaturalGrayActive() )
+  {
+    u8g2_sh1122_NaturalGrayFinish(u8g2, u8g2_sh1122_GetForegroundLevel());
+    return;
+  }
+  
+  /* default path */
   u8g2_send_buffer(u8g2);
   u8x8_RefreshDisplay( u8g2_GetU8x8(u8g2) );  
 }

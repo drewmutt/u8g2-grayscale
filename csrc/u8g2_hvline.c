@@ -248,8 +248,34 @@ void u8g2_DrawPixel(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y)
 */
 void u8g2_SetDrawColor(u8g2_t *u8g2, uint8_t color)
 {
-  u8g2->draw_color = color;	/* u8g2_SetDrawColor: just assign the argument */ 
-  if ( color >= 3 )
-    u8g2->draw_color = 1;	/* u8g2_SetDrawColor: make color as one if arg is invalid */
+  /* SH1122: map 0..15 to grayscale levels (no XOR on this device). */
+  if ( u8g2_sh1122_IsDevice(u8g2) )
+  {
+    uint8_t new_lvl = (uint8_t)(color & 0x0F);
+    if ( u8g2_sh1122_IsNaturalGrayActive() )
+    {
+      uint8_t prev_lvl = u8g2_sh1122_GetForegroundLevel();
+      u8g2_sh1122_NaturalGrayFlushLayer(u8g2, prev_lvl);
+    }
+    else
+    {
+      /* First time entering grayscale mode for this frame */
+      u8g2_sh1122_NaturalGrayBegin(u8g2);
+    }
+    u8g2_sh1122_SetForegroundLevel(new_lvl);
+    /* draw into the 1bpp buffer as normal 'set' */
+    u8g2->draw_color = 1;
+    return;
+  }
+
+  /* Non-SH1122: keep legacy semantics: 0=clear, 1=set, 2=xor; others map to 'set'. */
+  if ( color <= 2 )
+  {
+    u8g2->draw_color = color;
+  }
+  else
+  {
+    u8g2->draw_color = 1;
+  }
 }
 
