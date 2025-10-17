@@ -1,0 +1,40 @@
+{
+  "name": "U8g2-grayscale",
+  "version": "1.0.0",
+  "description": "U8g2 Monochrome LCD, OLED and eInk Library with grayscale support",
+  "keywords": "display, oled, lcd, ssd1306, graphics, monochrome",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drewmutt/u8g2-grayscale.git"
+  },
+  "authors": [
+    {
+      "name": "drewmutt",
+      "maintainer": true
+    }
+  ],
+  "license": "BSD-2-Clause",
+  "homepage": "https://github.com/drewmutt/u8g2-grayscale.git",
+  "frameworks": ["arduino", "espidf"],
+  "platforms": "*",
+  "build": {
+    "includeDir": "csrc",
+    "srcDir": "csrc",
+    "flags": "-std=c99",
+    "srcFilter": [
+      "+<*.c>",
+      "+<*.h>",
+      "-<u8x8_d_stdio.c>"
+    ]
+  },
+  "export": {
+    "include": [
+      "csrc/*.h",
+      "csrc/*.c",
+      "cppsrc/*.h",
+      "cppsrc/*.cpp",
+      "LICENSE",
+      "README.md"
+    ]
+  }
+}

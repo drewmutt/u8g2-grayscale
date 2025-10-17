@@ -10,8 +10,8 @@ sed -i 's|mui.h|clib/mui.h|g' ./../../../../U8g2_Arduino/src/MUIU8g2.h
 sed -i 's|mui_u8g2.h|clib/mui_u8g2.h|g' ./../../../../U8g2_Arduino/src/MUIU8g2.h
 # copy C files, exclude u8x8_d_stdio.c
 cp ../../../csrc/*.c ./../../../../U8g2_Arduino/src/clib/.
-cp ../../../csrc/*.h ./../../../../U8g2_Arduino/src/clib/.
-rm ./../../../../U8g2_Arduino/src/clib/u8x8_d_stdio.c
+cp ../../../csrc/*.h ./../../../../U8
+rm ./../../../../U8g2_Arduino/src/clib/u8x8_d_stdio.cg2_Arduino/src/clib/.
 
 # copy examples
 
